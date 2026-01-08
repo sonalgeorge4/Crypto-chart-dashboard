@@ -6,11 +6,33 @@
     <title>Crypto Chart Dashboard</title>
     <link rel="stylesheet" href="/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- IMPORTANT: Correct Lightweight Charts CDN -->
     <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
 </head>
 <body>
-    <!-- SAME HTML CONTENT AS BEFORE -->
-    <script src="/binance-api.js"></script>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-chart-line"></i> Crypto Dashboard</h1>
+            <p class="subtitle">Real-time charts using Lightweight Charts™</p>
+        </header>
+        
+        <div id="chart"></div>
+        
+        <div class="controls">
+            <p>Select Pair: 
+                <select>
+                    <option>BTC/USDT</option>
+                    <option>ETH/USDT</option>
+                </select>
+            </p>
+        </div>
+        
+        <footer>
+            <p>Built with Lightweight Charts™</p>
+        </footer>
+    </div>
+    
     <script src="/app.js"></script>
+    <!-- <script src="/binance-api.js"></script> -->
 </body>
 </html>
