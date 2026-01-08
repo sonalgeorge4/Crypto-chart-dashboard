@@ -1,96 +1,76 @@
-// Initialize Chart
-const chartContainer = document.getElementById('chart');
-
-// Check if element exists
-if (!chartContainer) {
-    console.error('Chart container not found!');
-    // Create one as fallback
-    const fallbackDiv = document.createElement('div');
-    fallbackDiv.id = 'chart';
-    fallbackDiv.style.width = '100%';
-    fallbackDiv.style.height = '500px';
-    document.body.appendChild(fallbackDiv);
-}
-
-const chart = LightweightCharts.createChart(chartContainer, {
-    width: chartContainer.clientWidth,
-    height: 500,
-    layout: {
-        backgroundColor: '#0f2027',
-        textColor: '#d1d4dc',
-    },
-    grid: {
-        vertLines: {
-            color: 'rgba(255, 255, 255, 0.1)',
-        },
-        horzLines: {
-            color: 'rgba(255, 255, 255, 0.1)',
-        },
-    },
-    crosshair: {
-        mode: LightweightCharts.CrosshairMode.Normal,
-    },
-    rightPriceScale: {
-        borderColor: 'rgba(255, 255, 255, 0.1)',
-    },
-    timeScale: {
-        borderColor: 'rgba(255, 255, 255, 0.1)',
-        timeVisible: true,
-    },
-});
-
-// Add candlestick series
-const candleSeries = chart.addCandlestickSeries({
-    upColor: '#00ff9d',
-    downColor: '#ff3b6b',
-    borderDownColor: '#ff3b6b',
-    borderUpColor: '#00ff9d',
-    wickDownColor: '#ff3b6b',
-    wickUpColor: '#00ff9d',
-});
-
-// Sample data (temporary until Binance API loads)
-const sampleData = [
-    { time: '2023-10-01', open: 45000, high: 46000, low: 44500, close: 45500 },
-    { time: '2023-10-02', open: 45500, high: 47000, low: 45300, close: 46500 },
-    { time: '2023-10-03', open: 46500, high: 47500, low: 46000, close: 47000 },
-    { time: '2023-10-04', open: 47000, high: 48000, low: 46800, close: 47500 },
-    { time: '2023-10-05', open: 47500, high: 48500, low: 47000, close: 48000 },
-    { time: '2023-10-06', open: 48000, high: 49000, low: 47500, close: 48500 },
-    { time: '2023-10-07', open: 48500, high: 49500, low: 48000, close: 49000 },
-    { time: '2023-10-08', open: 49000, high: 50000, low: 48500, close: 49500 },
-    { time: '2023-10-09', open: 49500, high: 50500, low: 49000, close: 50000 },
-    { time: '2023-10-10', open: 50000, high: 51000, low: 49500, close: 50500 },
-];
-
-candleSeries.setData(sampleData);
-
-// Add a simple line series for moving average
-const lineSeries = chart.addLineSeries({
-    color: '#3a7bd5',
-    lineWidth: 2,
-    lineStyle: 0, // 0 = solid, 1 = dotted, 2 = dashed
-});
-
-const maData = sampleData.map((candle, index) => {
-    const avg = sampleData
-        .slice(Math.max(0, index - 2), index + 1)
-        .reduce((sum, c) => sum + c.close, 0) / Math.min(3, index + 1);
+// Wait for page to load
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Page loaded, initializing chart...');
     
-    return {
-        time: candle.time,
-        value: avg
-    };
-});
-
-lineSeries.setData(maData);
-
-// Handle window resize
-window.addEventListener('resize', () => {
-    chart.applyOptions({
+    // Check if LightweightCharts is loaded
+    if (typeof LightweightCharts === 'undefined') {
+        console.error('LightweightCharts library not loaded!');
+        document.body.innerHTML += '<p style="color:red;text-align:center;">Error: Chart library failed to load. Check CDN URL.</p>';
+        return;
+    }
+    
+    console.log('LightweightCharts loaded:', LightweightCharts);
+    
+    // Get chart container
+    const chartContainer = document.getElementById('chart');
+    if (!chartContainer) {
+        console.error('Chart container not found!');
+        return;
+    }
+    
+    // Create chart
+    const chart = LightweightCharts.createChart(chartContainer, {
         width: chartContainer.clientWidth,
+        height: 400,
+        layout: {
+            backgroundColor: '#0f2027',
+            textColor: '#d1d4dc',
+        }
     });
+    
+    console.log('Chart created successfully');
+    
+    // Add candlestick series
+    const candleSeries = chart.addCandlestickSeries({
+        upColor: '#26a69a',
+        downColor: '#ef5350',
+        borderVisible: false,
+        wickUpColor: '#26a69a',
+        wickDownColor: '#ef5350',
+    });
+    
+    console.log('Candlestick series added');
+    
+    // Add sample data
+    const sampleData = [
+        { time: '2023-01-01', open: 100, high: 110, low: 95, close: 105 },
+        { time: '2023-01-02', open: 105, high: 115, low: 100, close: 110 },
+        { time: '2023-01-03', open: 110, high: 120, low: 105, close: 115 },
+        { time: '2023-01-04', open: 115, high: 125, low: 110, close: 120 },
+        { time: '2023-01-05', open: 120, high: 130, low: 115, close: 125 },
+        { time: '2023-01-06', open: 125, high: 135, low: 120, close: 130 },
+        { time: '2023-01-07', open: 130, high: 140, low: 125, close: 135 },
+        { time: '2023-01-08', open: 135, high: 145, low: 130, close: 140 },
+        { time: '2023-01-09', open: 140, high: 150, low: 135, close: 145 },
+        { time: '2023-01-10', open: 145, high: 155, low: 140, close: 150 },
+    ];
+    
+    candleSeries.setData(sampleData);
+    console.log('Sample data loaded');
+    
+    // Add a simple line
+    const lineSeries = chart.addLineSeries({
+        color: '#2962FF',
+        lineWidth: 2,
+    });
+    
+    const lineData = sampleData.map(item => ({
+        time: item.time,
+        value: (item.open + item.close) / 2
+    }));
+    
+    lineSeries.setData(lineData);
+    
+    // Success message
+    document.querySelector('p').textContent = 'Chart loaded successfully!';
 });
-
-// Add loading message
-console.log('Chart initialized successfully!');
