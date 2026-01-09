@@ -338,3 +338,53 @@ export const calculateChange = (current, previous) => {
   if (!previous || previous === 0) return 0;
   return ((current - previous) / previous) * 100;
 };
+
+export const calculateStochRSI = (candles, period = 14, kPeriod = 3, dPeriod = 3) => {
+  if (!candles || candles.length < period) {
+    return { kLine: [], dLine: [] };
+  }
+
+  const rsi = calculateRSI(candles, period);
+  const kLine = [];
+  const dLine = [];
+
+  let minRSI, maxRSI;
+
+  for (let i = 0; i < rsi.length; i++) {
+    if (i < period - 1) {
+      kLine.push(null);
+      dLine.push(null);
+      continue;
+    }
+
+    const rsiSlice = rsi.slice(i - period + 1, i + 1).filter(v => v !== null);
+    if (rsiSlice.length === 0) {
+      kLine.push(null);
+      dLine.push(null);
+      continue;
+    }
+
+    minRSI = Math.min(...rsiSlice);
+    maxRSI = Math.max(...rsiSlice);
+
+    const stochRSI = maxRSI === minRSI ? 50 : ((rsi[i] - minRSI) / (maxRSI - minRSI)) * 100;
+    kLine.push(stochRSI);
+  }
+
+  // Calculate K line EMA
+  const kLineEMA = calculateEMA(
+    candles.map((c, i) => ({ ...c, close: kLine[i] ?? c.close })),
+    kPeriod
+  );
+
+  // Calculate D line (EMA of K line)
+  const dLineEMA = calculateEMA(
+    candles.map((c, i) => ({ ...c, close: kLineEMA[i] ?? c.close })),
+    dPeriod
+  );
+
+  return {
+    kLine: kLine.map((v, i) => (v !== null && kLineEMA[i] !== null ? kLineEMA[i] : null)),
+    dLine: dLineEMA,
+  };
+};

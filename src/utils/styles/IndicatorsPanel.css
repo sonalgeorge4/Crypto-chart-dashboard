@@ -1,0 +1,254 @@
+/* ===== INDICATORS PANEL ===== */
+.indicators-panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 320px;
+  height: 100vh;
+  background: #0f0f1e;
+  border-left: 1px solid #374151;
+  overflow-y: auto;
+  z-index: 500;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.5);
+  animation: slideIn 0.3s ease-out;
+}
+
+.indicators-panel.light {
+  background: #ffffff;
+  border-left-color: #e5e7eb;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #374151;
+  position: sticky;
+  top: 0;
+  background: #0f0f1e;
+  z-index: 10;
+}
+
+.indicators-panel.light .panel-header {
+  background: #ffffff;
+  border-bottom-color: #e5e7eb;
+}
+
+.panel-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: #f1f5f9;
+}
+
+.indicators-panel.light .close-btn:hover {
+  color: #1f2937;
+}
+
+.indicators-list {
+  padding: 8px;
+}
+
+.indicator-item {
+  margin-bottom: 8px;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.indicators-panel.light .indicator-item {
+  border-color: #d1d5db;
+}
+
+.indicator-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  background: #1e293b;
+  cursor: pointer;
+  user-select: none;
+}
+
+.indicators-panel.light .indicator-header {
+  background: #f3f4f6;
+}
+
+.indicator-checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.indicator-label {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.expand-btn {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 0 4px;
+}
+
+.indicator-params {
+  padding: 12px;
+  background: #151522;
+  border-top: 1px solid #334155;
+}
+
+.indicators-panel.light .indicator-params {
+  background: #f9fafb;
+  border-top-color: #d1d5db;
+}
+
+.param-row {
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.param-row:last-child {
+  margin-bottom: 0;
+}
+
+.param-row label {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.indicators-panel.light .param-row label {
+  color: #6b7280;
+}
+
+.param-row input[type='number'],
+.param-row input[type='color'] {
+  padding: 6px;
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 4px;
+  color: #f1f5f9;
+  font-size: 12px;
+}
+
+.indicators-panel.light .param-row input[type='number'],
+.indicators-panel.light .param-row input[type='color'] {
+  background: #ffffff;
+  border-color: #d1d5db;
+  color: #1f2937;
+}
+
+.multi-number-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.multi-input {
+  display: flex;
+  gap: 4px;
+}
+
+.multi-input input {
+  flex: 1;
+}
+
+.remove-btn,
+.add-btn {
+  padding: 4px 8px;
+  background: #334155;
+  border: 1px solid #475569;
+  border-radius: 4px;
+  color: #f1f5f9;
+  cursor: pointer;
+  font-size: 11px;
+  transition: all 0.2s;
+}
+
+.remove-btn:hover,
+.add-btn:hover {
+  background: #475569;
+}
+
+.indicators-panel.light .remove-btn,
+.indicators-panel.light .add-btn {
+  background: #e5e7eb;
+  border-color: #d1d5db;
+  color: #1f2937;
+}
+
+.indicators-panel.light .remove-btn:hover,
+.indicators-panel.light .add-btn:hover {
+  background: #d1d5db;
+}
+
+.color-group {
+  display: flex;
+  gap: 6px;
+}
+
+.color-group input[type='color'] {
+  width: 40px;
+  height: 32px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+/* ===== SCROLLBAR ===== */
+.indicators-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.indicators-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.indicators-panel::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 3px;
+}
+
+.indicators-panel::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .indicators-panel {
+    width: 100%;
+    right: -100%;
+    transition: right 0.3s ease-out;
+  }
+
+  .indicators-panel.open {
+    right: 0;
+  }
+}

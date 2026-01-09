@@ -245,20 +245,24 @@ body {
   color: #1f2937;
 }
 
-/* ===== CHART CONTAINER ===== */
+/* ===== CHART WRAPPER ===== */
 .chart-wrapper {
   display: flex;
   flex: 1;
   overflow: hidden;
 }
 
-.chart-container {
+.main-chart-area {
+  display: flex;
+  flex-direction: column;
   flex: 1;
-  background: #1a1a2e;
+  overflow: hidden;
 }
 
-.app.light .chart-container {
-  background: #f9fafb;
+.chart-section {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
 }
 
 /* ===== INDICATORS PANEL ===== */

@@ -1,0 +1,80 @@
+/* ===== OSCILLATORS PANEL ===== */
+.oscillators-panel {
+  background: #0f0f1e;
+  border-top: 1px solid #374151;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.oscillators-panel.light {
+  background: #ffffff;
+  border-top-color: #e5e7eb;
+}
+
+/* Individual Oscillator Pane */
+.oscillator-pane {
+  border-bottom: 1px solid #374151;
+  display: flex;
+  flex-direction: column;
+}
+
+.oscillators-panel.light .oscillator-pane {
+  border-bottom-color: #e5e7eb;
+}
+
+.oscillator-pane:last-child {
+  border-bottom: none;
+}
+
+.pane-title {
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #9ca3af;
+  background: #1a1a2e;
+  user-select: none;
+}
+
+.oscillators-panel.light .pane-title {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+/* Chart Container */
+.oscillator-chart {
+  flex: 1;
+  min-height: 150px;
+  width: 100%;
+}
+
+/* ===== SCROLLBAR ===== */
+.oscillators-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.oscillators-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.oscillators-panel::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 3px;
+}
+
+.oscillators-panel::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .oscillators-panel {
+    max-height: 300px;
+  }
+
+  .oscillator-chart {
+    min-height: 100px;
+  }
+}
