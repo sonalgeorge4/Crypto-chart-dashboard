@@ -1,51 +1,60 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --tv-color-platform-background: #131722;
-  --tv-color-pane-background: #1e222d;
-  --tv-color-pane-background-secondary: #2a2e39;
-  --tv-color-toolbar-button-background-hover: #363c4e;
-  --tv-color-toolbar-button-background-expanded: #363c4e;
-  --tv-color-toolbar-button-text: #b2b5be;
-  --tv-color-toolbar-button-text-hover: #d1d4dc;
-  --tv-color-toolbar-button-text-active: #fff;
-  --tv-color-toolbar-button-text-active-hover: #fff;
-  --tv-color-item-active-text: #fff;
-  --tv-color-toolbar-toggle-button-background-active: #2962ff;
-  --tv-color-toolbar-toggle-button-background-active-hover: #1e53e5;
-}
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: var(--tv-color-platform-background);
-  color: #d1d4dc;
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
   overflow: hidden;
-  height: 100vh;
 }
 
-/* Custom scrollbar */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #1a1a2e;
+  color: #d1d5db;
+}
+
+/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--tv-color-pane-background);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--tv-color-toolbar-button-background-hover);
+  background: #475569;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #4a5066;
+  background: #64748b;
+}
+
+/* Remove default number spinner */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+/* Focus styles */
+input:focus,
+button:focus,
+select:focus {
+  outline: 2px solid #0ea5e9;
+  outline-offset: 2px;
 }
