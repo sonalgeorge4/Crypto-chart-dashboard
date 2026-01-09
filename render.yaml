@@ -2,29 +2,23 @@ services:
   - type: web
     name: crypto-chart-dashboard
     env: node
-    
-    # Region
     region: oregon
+    plan: free
     
-    # Build command
-    buildCommand: npm install && npm run build
+    # Install & build
+    buildCommand: npm install --legacy-peer-deps && npm run build
     
-    # Start command
+    # Start the server
     startCommand: npm start
     
-    # Environment variables
+    # Environment
     envVars:
       - key: NODE_ENV
         value: production
-      - key: NODE_VERSION
-        value: 18
     
     # Health check
     healthCheckPath: /
     healthCheckInterval: 30
     
-    # Auto deploy on push
+    # Auto-deploy
     autoDeploy: true
-    
-    # Scaling (free tier)
-    plan: free
